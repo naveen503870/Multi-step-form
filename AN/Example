@@ -1,0 +1,56 @@
+<?php
+
+function generateUID(){
+  $chars = ['a', 'b', 'c', 'd', 'e', 1, 2, 3];
+  $length = 6;
+  $generated = '';
+  $arr_length = count($chars);
+  for($i = 0; $i < $length; $i++){
+    $generated += $chars[rand(0, $arr_length - 1)]
+  }
+  return $generated
+}
+
+
+
+$userid = generateUID();
+
+
+$sql = "INSERT INTO STUDENTS(`userId`, `fname`, `lname`) VALUES('$userId', '$fname', '$lname')";
+$query = mysqli_query($conn, $sql);
+if( !$query){
+  // Response error ka
+  exit()
+}
+
+$_COOKIE['userid'] = $userid;
+
+
+Table 1 = {
+  id: 1,
+  userId: $userid,
+  firstName: "Shanu"
+}
+
+$_COOKIE['userId'] = $userid
+
+
+// OPEN FORM 2
+
+if(isset($_COOKIE['userid'])){
+  $userid = $_COOKIE['userid']
+
+  Table 2 = {
+    id: 1,
+    userid: $userid,
+    ...FORM_DATA
+  }
+
+  $sql = "INSERT INTO (userId) VALUES($userid)"
+  // DISPLAY FORM 2/3
+}
+else{
+  // REDIRECT TO FORM 1
+  header('index.php')
+}
+?>
